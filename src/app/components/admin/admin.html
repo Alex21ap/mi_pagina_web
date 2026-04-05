@@ -1,0 +1,89 @@
+<div class="container py-4">
+  <div class="bg-dark text-white p-4 rounded-3 mb-4 shadow">
+    <h2 class="mb-0"><i class="bi bi-person-badge me-2"></i>Panel de Control - La Tía Veneno</h2>
+  </div>
+
+  <ul class="nav nav-pills mb-4 shadow-sm p-2 bg-white rounded" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active fw-bold" id="pills-reservas-tab" data-bs-toggle="pill" data-bs-target="#pills-reservas" type="button" role="tab">
+        <i class="bi bi-calendar-check me-2"></i>Reservas ({{ listaReservas.length }})
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link fw-bold" id="pills-pedidos-tab" data-bs-toggle="pill" data-bs-target="#pills-pedidos" type="button" role="tab">
+        <i class="bi bi-bicycle me-2"></i>Pedidos ({{ listaPedidos.length }})
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="pills-tabContent">
+    
+    <div class="tab-pane fade show active" id="pills-reservas" role="tabpanel">
+      <div class="card border-0 shadow-sm">
+        <table class="table align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Cliente</th>
+              <th>Fecha y Hora</th>
+              <th>Personas</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let res of listaReservas">
+              <td class="fw-bold">{{ res.nombre }}</td>
+              <td>{{ res.fecha }} | {{ res.hora }}</td>
+              <td><span class="badge bg-primary">{{ res.personas }}</span></td>
+              <td>
+                <button class="btn btn-outline-success btn-sm" (click)="finalizarReserva(res.id)">
+                  <i class="bi bi-check2-all"></i> Finalizar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="listaReservas.length === 0">
+              <td colspan="4" class="text-center py-5 text-muted">No hay reservas pendientes por ahora.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-pedidos" role="tabpanel">
+      <div class="card border-0 shadow-sm">
+        <table class="table align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Cliente / Dirección</th>
+              <th>Detalle del Pedido</th>
+              <th>Total</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ped of listaPedidos">
+              <td>
+                <div class="fw-bold">{{ ped.cliente.nombre }}</div>
+                <div class="small text-muted">{{ ped.cliente.direccion }}</div>
+              </td>
+              <td>
+                <span class="badge bg-secondary me-1" *ngFor="let p of ped.productos">
+                  {{ p.nombre }}
+                </span>
+              </td>
+              <td class="fw-bold text-success">{{ ped.total | currency:'PEN ' }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="despacharPedido(ped.id)">
+                  <i class="bi bi-box-seam me-1"></i> Despachar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="listaPedidos.length === 0">
+              <td colspan="4" class="text-center py-5 text-muted">No hay pedidos pendientes por ahora.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

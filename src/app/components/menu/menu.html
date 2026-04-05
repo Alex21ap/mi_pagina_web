@@ -1,0 +1,87 @@
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-danger">🍴 La Tía Veneno 🍴</h1>
+    <p class="lead text-muted">El sabor que te hace volver (bajo tu propio riesgo)</p>
+    <hr class="w-25 mx-auto border-danger border-2">
+  </div>
+
+  <div class="d-flex justify-content-center flex-wrap gap-2 mb-5">
+    <button 
+      *ngFor="let cat of categorias" 
+      (click)="categoriaSeleccionada = cat"
+      [class]="categoriaSeleccionada === cat ? 'btn btn-danger shadow' : 'btn btn-outline-danger'"
+      class="btn rounded-pill px-4 fw-bold shadow-sm">
+      {{ cat }}
+    </button>
+  </div>
+
+  <div class="row justify-content-center">
+    <div [class]="carrito.length > 0 ? 'col-lg-8' : 'col-lg-12'">
+      <div class="row g-4" 
+           [ngClass]="carrito.length > 0 ? 'row-cols-1 row-cols-md-2 row-cols-lg-2' : 'row-cols-1 row-cols-md-2 row-cols-lg-3'">
+        
+        <div class="col" *ngFor="let plato of platosFiltrados">
+          <div class="card h-100 shadow-sm border-0 card-veneno">
+            <img [src]="plato.imagen" class="card-img-top object-fit-cover" alt="..." style="height: 200px;">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title fw-bold text-truncate" style="max-width: 70%;">{{ plato.nombre }}</h5>
+                <span class="badge bg-success fs-6">{{ plato.precio | currency:'PEN ' }}</span>
+              </div>
+              <p class="card-text text-secondary small">{{ plato.descripcion }}</p>
+              <small class="text-muted d-block mb-3"><i class="bi bi-tag-fill me-1"></i>{{ plato.categoria }}</small>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+              <button class="btn btn-outline-danger w-100 fw-bold" (click)="agregarAlPedido(plato)">
+                <i class="bi bi-cart-plus me-2"></i>AÑADIR AL PEDIDO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 mt-4 mt-lg-0 ps-lg-4" *ngIf="carrito.length > 0">
+      <div class="card shadow border-danger sticky-top" style="top: 100px; z-index: 1000;">
+        <div class="card-header bg-danger text-white py-3">
+          <h5 class="mb-0 fw-bold"><i class="bi bi-bag-check-fill me-2"></i>Tu Pedido Actual</h5>
+        </div>
+        
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3" style="max-height: 300px; overflow-y: auto;">
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0 border-light" *ngFor="let item of carrito; let i = index">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold small">{{ item.nombre }}</div>
+                <span class="text-success small">{{ item.precio | currency:'PEN ' }}</span>
+              </div>
+              <button class="btn btn-sm text-danger" (click)="quitarDelPedido(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </li>
+          </ul>
+
+          <div class="d-flex justify-content-between fs-5 fw-bold text-dark border-top pt-2 mb-4">
+            <span>Total:</span>
+            <span class="text-danger">{{ total | currency:'PEN ' }}</span>
+          </div>
+
+          <div class="bg-light p-3 rounded-3 mb-3">
+            <h6 class="fw-bold mb-3 small">Datos de Entrega</h6>
+            <div class="mb-2">
+              <input type="text" class="form-control form-control-sm" name="cliente" [(ngModel)]="datosEnvio.nombre" placeholder="Nombre">
+            </div>
+            <div class="mb-0">
+              <input type="text" class="form-control form-control-sm" name="direccion" [(ngModel)]="datosEnvio.direccion" placeholder="Dirección">
+            </div>
+          </div>
+
+          <button class="btn btn-danger btn-lg w-100 fw-bold shadow-sm" 
+                  (click)="realizarPedido()"
+                  [disabled]="!datosEnvio.nombre || !datosEnvio.direccion">
+            ENVIAR PEDIDO
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

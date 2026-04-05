@@ -1,0 +1,46 @@
+<div class="row justify-content-center mt-4">
+  <div class="col-md-6">
+    <div class="card shadow border-0">
+      <div class="card-header bg-dark text-white text-center py-3">
+        <h2 class="mb-0">Reserva tu Mesa</h2>
+      </div>
+      <div class="card-body p-4">
+        <form #formReserva="ngForm" (ngSubmit)="enviarReserva(formReserva)">
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold">Nombre Completo</label>
+            <input type="text" class="form-control" name="nombre" [(ngModel)]="nuevaReserva.nombre" required #nombre="ngModel" placeholder="¿A nombre de quién?">
+            <div *ngIf="nombre.invalid && nombre.touched" class="text-danger small">El nombre es obligatorio.</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Fecha</label>
+              <input type="date" class="form-control" name="fecha" [(ngModel)]="nuevaReserva.fecha" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Hora</label>
+              <input type="time" class="form-control" name="hora" [(ngModel)]="nuevaReserva.hora" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Número de Personas</label>
+            <select class="form-select" name="personas" [(ngModel)]="nuevaReserva.personas" required>
+              <option value="" disabled selected>Seleccione cantidad</option>
+              <option [ngValue]="i" *ngFor="let i of [1,2,3,4,5,6,8,10]">{{ i }} personas</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Pedido Especial / Comentario</label>
+            <textarea class="form-control" name="comentario" [(ngModel)]="nuevaReserva.comentario" rows="3" placeholder="Ej: Sin cebolla, es un aniversario..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-danger btn-lg w-100 fw-bold" [disabled]="!formReserva.form.valid">CONFIRMAR RESERVA</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

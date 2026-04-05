@@ -1,0 +1,39 @@
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg border-0 rounded-4" style="width: 100%; max-width: 400px;">
+    <div class="card-body p-5 text-center">
+      <h2 class="fw-bold mb-4 text-danger">Crear Cuenta</h2>
+      <p class="text-muted mb-4">Únete a la familia de La Tía Veneno</p>
+
+      <form (ngSubmit)="onRegistro()" #registroForm="ngForm">
+        <div class="form-floating mb-3 text-start">
+          <input type="text" class="form-control" id="nombre" name="nombre" 
+                 [(ngModel)]="nuevoUsuario.nombre" required placeholder="Tu nombre">
+          <label for="nombre"><i class="bi bi-person me-2"></i>Nombre completo</label>
+        </div>
+
+        <div class="form-floating mb-3 text-start">
+          <input type="email" class="form-control" id="email" name="email" 
+                 [(ngModel)]="nuevoUsuario.email" required email placeholder="correo@ejemplo.com">
+          <label for="email"><i class="bi bi-envelope me-2"></i>Correo electrónico</label>
+        </div>
+
+        <div class="form-floating mb-4 text-start">
+          <input type="password" class="form-control" id="password" name="password" 
+                 [(ngModel)]="nuevoUsuario.password" required minlength="6" placeholder="Contraseña">
+          <label for="password"><i class="bi bi-lock me-2"></i>Contraseña (mín. 6 caracteres)</label>
+        </div>
+
+        <button class="btn btn-danger btn-lg w-100 fw-bold shadow" type="submit" 
+                [disabled]="!registroForm.valid">
+          REGISTRARME
+        </button>
+
+        <div class="mt-4">
+          <p class="mb-0 text-muted">¿Ya tienes cuenta? 
+            <a routerLink="/login" class="text-danger fw-bold text-decoration-none">Inicia sesión</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

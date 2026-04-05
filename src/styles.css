@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+/* 1. Importar Google Fonts (Opcional, pero recomendado para el estilo de "La Tía Veneno") */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* 2. Estilos base del cuerpo */
+body {
+    font-family: 'Poppins', sans-serif; /* Usamos una fuente moderna */
+    background-color: #f8f9fa; /* Un gris muy claro para que resalten las tarjetas */
+    color: #333;
+}
+
+/* 3. Personalización de colores de "La Tía Veneno" */
+:root {
+    --rojo-veneno: #d32f2f;
+    --verde-precio: #2e7d32;
+}
+
+/* 4. Estilos globales para botones */
+.btn-danger {
+    background-color: var(--rojo-veneno);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #b71c1c;
+    transform: scale(1.02);
+}
+
+/* 5. Estilo global para las imágenes de los platos */
+.object-fit-cover {
+    object-fit: cover;
+}
+
+/* 6. Animación suave para todas las tarjetas del sitio */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 7. Ajuste para que el contenido no quede pegado a la Navbar */
+.container {
+    padding-top: 20px;
+}
+
+/* 8. Estilo para el estado "Activo" en la Navbar */
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid white;
+}
